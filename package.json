@@ -1,0 +1,28 @@
+{
+	"name": "ecommerce-api",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "npx nodemon server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ayoub-akraou/ecommerce-api.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "commonjs",
+	"bugs": {
+		"url": "https://github.com/ayoub-akraou/ecommerce-api/issues"
+	},
+	"homepage": "https://github.com/ayoub-akraou/ecommerce-api#readme",
+	"dependencies": {
+		"dotenv": "^17.2.1",
+		"express": "^5.1.0"
+	},
+	"devDependencies": {
+		"nodemon": "^3.1.10"
+	}
+}
