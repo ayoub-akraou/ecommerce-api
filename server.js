@@ -2,7 +2,14 @@ const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
+
 dotenv.config({ path: "config.env" });
+mongoose
+	.connect(process.env.DB_URI)
+	.then((conn) => console.log(conn.connection.host))
+	.catch((err) => console.error(err.message));
+
+// express app
 const app = express();
 
 // middlewares
