@@ -8,7 +8,7 @@ const dbConnection = () => {
 		})
 		.catch((err) => {
 			console.error(`connection failed: ${JSON.stringify(err)}`);
-			process.exit(1);
+			// process.exit(1);
 		});
 };
 
