@@ -20,5 +20,5 @@ exports.getCategories = asyncHandler(async (req, res) => {
 exports.createCategory = asyncHandler(async (req, res) => {
 	const { name } = req.body;
 	const category = await CategoryModel.create({ name, slug: slugify(name) });
-	res.status(201).json(category);
+	res.status(201).json({ success: true, message: "Category created successfully", data: category });
 });
