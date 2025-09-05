@@ -22,3 +22,14 @@ exports.createCategory = asyncHandler(async (req, res) => {
 	const category = await CategoryModel.create({ name, slug: slugify(name) });
 	res.status(201).json({ success: true, message: "Category created successfully", data: category });
 });
+
+// @desc   Get a category by id
+// @route  GET /api/categories/v1/:id
+// @access Public
+
+exports.getCategory = asyncHandler(async (req, res) => {
+	const { id } = req.params;
+	const category = await categoryModel.findById(id);
+	if (!category) res.status(404).json({ success: false, message: "category not found!" });
+	res.json({ success: true, category });
+});
