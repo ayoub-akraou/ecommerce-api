@@ -7,7 +7,10 @@ const categoryModel = require("../models/categoryModel");
 // @route  GET /api/v1/categories
 // @access Public
 exports.getCategories = asyncHandler(async (req, res) => {
-	const categories = await categoryModel.find();
+	const page = Number(req.query.page) || 1;
+	const limit = Number(req.query.limit) || 2;
+	const skip = (page - 1) * limit;
+	const categories = await categoryModel.find().skip(skip).limit(limit);
 	res.json({ results: categories.length, data: categories });
 });
 
