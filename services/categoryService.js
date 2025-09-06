@@ -33,3 +33,14 @@ exports.getCategory = asyncHandler(async (req, res) => {
 	if (!category) res.status(404).json({ success: false, message: "category not found!" });
 	res.json({ success: true, category });
 });
+
+// @desc   Update a specific category
+// @route  PUT /api/categories/v1/:id
+// @access Private
+exports.updateCategory = asyncHandler(async (req, res) => {
+	const { id } = req.params;
+	const { name } = req.body;
+	const category = await categoryModel.findOneAndUpdate({ _id: id }, { name, slug: slugify(name) }, { new: true });
+	if (!category) res.status(404).json({ success: false, message: "category not found!" });
+	res.json({ success: true, message: "category updated successfully!", data: category });
+});
