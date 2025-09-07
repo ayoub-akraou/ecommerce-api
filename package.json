@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev": "npx nodemon server.js"
+		"start:dev": "npx nodemon server.js",
+		"start:prod": "cross-env NODE_ENV=production npx nodemon server.js"
 	},
 	"repository": {
 		"type": "git",
