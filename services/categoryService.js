@@ -2,7 +2,7 @@ const slugify = require("slugify");
 const CategoryModel = require("../models/categoryModel");
 const asyncHandler = require("express-async-handler");
 const categoryModel = require("../models/categoryModel");
-
+const ApiError = require("../utils/ApiError");
 // @desc   Get all categories
 // @route  GET /api/v1/categories
 // @access Public
@@ -26,31 +26,30 @@ exports.createCategory = asyncHandler(async (req, res) => {
 // @desc   Get a category by id
 // @route  GET /api/categories/v1/:id
 // @access Public
-
-exports.getCategory = asyncHandler(async (req, res) => {
+exports.getCategory = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
 	const category = await categoryModel.findById(id);
-	if (!category) res.status(404).json({ success: false, message: "category not found!" });
+	if (!category) return next(new ApiError("category not found!", 404));
 	res.json({ success: true, category });
 });
 
 // @desc   Update a specific category
 // @route  PUT /api/categories/v1/:id
 // @access Private
-exports.updateCategory = asyncHandler(async (req, res) => {
+exports.updateCategory = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
 	const { name } = req.body;
 	const category = await categoryModel.findOneAndUpdate({ _id: id }, { name, slug: slugify(name) }, { new: true });
-	if (!category) res.status(404).json({ success: false, message: "category not found!" });
+	if (!category) return next(new ApiError("category not found!", 404));
 	res.json({ success: true, message: "category updated successfully!", data: category });
 });
 
 // @desc   Delete a specific category
 // @route  DELETE /api/categories/v1/:id
 // @access Private
-exports.deleteCategory = asyncHandler(async (req, res) => {
+exports.deleteCategory = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
 	const category = await categoryModel.findByIdAndDelete(id);
-	if (!category) res.status(404).json({ success: false, message: "category not found!" });
+	if (!category) return next(new ApiError("category not found!", 404));
 	res.status(204).send();
 });
