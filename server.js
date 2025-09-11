@@ -28,6 +28,15 @@ app.use((req, res, next) => {
 app.use(globalErrorMiddleware);
 
 const PORT = process.env.PORT;
-app.listen(PORT, (err) => {
+const server = app.listen(PORT, (err) => {
 	console.log(`server started on PORT ${PORT}!`);
+});
+
+// handle rejections outside express
+process.on("unhandledRejection", (err) => {
+	console.error(`Unhandled Rejection Error: ${err.name} | ${err.message} \n stack: ${err.stack}`);
+	server.close(() => {
+		console.error("Shutting down...");
+		process.exit(1);
+	});
 });
